@@ -6,21 +6,50 @@
        app
        v-model="drawer"
       >
-        <v-list dense class="pt-0">
-          <v-list-tile
-            v-for="item in items"
+      <v-list dense>
+        <template v-for="item in items">
+          <v-list-group
+            v-if="item.children"
+            v-model="item.model"
             :key="item.title"
-            @click=""
+            :prepend-icon="item.model ? item.icon : item['icon-alt']"
+            append-icon=""
           >
+            <v-list-tile slot="activator">
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ item.title }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile
+              v-for="(child, i) in item.children"
+              :key="i"
+              @click=""
+            >
+              <v-list-tile-action v-if="child.icon">
+                <v-icon>{{ child.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ child.title }}
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list-group>
+
+          <v-list-tile v-else @click="" :key="item.title">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
-    
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              <v-list-tile-title>
+                {{ item.title }}
+              </v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-        </v-list>
+        </template>
+      </v-list>
       </v-navigation-drawer>
 
       <v-toolbar
@@ -84,10 +113,26 @@ export default {
       items: [
         { title: 'Dashboard', icon: 'dashboard' },
         { title: 'About', icon: 'question_answer' },
-        { title: 'About1', icon: 'question_answer' },
-        { title: 'About2', icon: 'question_answer' },
-        { title: 'About3', icon: 'question_answer' },
-        { title: 'About4', icon: 'question_answer' }
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          title: 'Roles',
+          model: false,
+          children: [
+            { icon: 'add', title: 'Create Role' },
+            { icon: 'view_list', title: 'View Roles' },
+          ]
+        },
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          title: 'Permissions',
+          model: false,
+          children: [
+            { icon: 'add', title: 'Create Permission' },
+            { icon: 'view_list', title: 'View Permission' },
+          ]
+        }
       ],
       icons: [
         {
