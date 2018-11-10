@@ -7,10 +7,10 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-    })
-  }
+export default {
+  data: () => ({
+  })
+}
 </script>
 
 <style>

@@ -2,7 +2,7 @@
   <v-app>
       <v-navigation-drawer
        fixed
-       :clipped="$vuetify.breakpoint.mdAndUp"
+       :clipped="$vuetify.breakpoint.smAndUp"
        app
        v-model="drawer"
       >
@@ -37,8 +37,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-
-          <v-list-tile v-else @click="" :key="item.title">
+          <v-list-tile v-else @click="" :key="item.title" :to="item.component">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -51,7 +50,6 @@
         </template>
       </v-list>
       </v-navigation-drawer>
-
       <v-toolbar
         color="blue darken-3"
         dark
@@ -70,12 +68,10 @@
           <v-btn icon>
             <v-icon>notifications</v-icon>
           </v-btn>
-          
           <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
             <v-btn icon large flat slot="activator">
               <v-icon> account_circle </v-icon>
             </v-btn>
-
             <v-list class="pa-0">
               <v-list-tile v-for="(item,index) in icons" :to="!item.href ? { name: item.name } : null" :href="item.href" @click="item.click" ripple="ripple" :disabled="item.disabled" :target="item.target" rel="noopener" :key="index">
                 <v-list-tile-action v-if="item.icon">
@@ -86,18 +82,13 @@
                 </v-list-tile-content>
               </v-list-tile>
             </v-list>
-            
           </v-menu>
-
       </v-toolbar>
-    
-        <v-divider></v-divider>
-    
-        
+      <v-divider></v-divider>
       <v-content>
          <v-container fluid fill-height>
            <v-layout  justify-center align-center>
-              hello world
+              <router-view></router-view>
            </v-layout>
         </v-container>
       </v-content>
@@ -108,11 +99,14 @@
 
 export default {
   name: 'App',
+  mounted () {
+    console.log(this.$vuetify.breakpoint.mdAndUp)
+  },
   data () {
     return {
       items: [
-        { title: 'Dashboard', icon: 'dashboard' },
-        { title: 'About', icon: 'question_answer' },
+        { title: 'Dashboard', icon: 'dashboard', component: '/' },
+        { title: 'About', icon: 'question_answer' , component: 'About'},
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
@@ -120,7 +114,7 @@ export default {
           model: false,
           children: [
             { icon: 'add', title: 'Create Role' },
-            { icon: 'view_list', title: 'View Roles' },
+            { icon: 'view_list', title: 'View Roles' }
           ]
         },
         {
@@ -130,7 +124,7 @@ export default {
           model: false,
           children: [
             { icon: 'add', title: 'Create Permission' },
-            { icon: 'view_list', title: 'View Permission' },
+            { icon: 'view_list', title: 'View Permission' }
           ]
         }
       ],
@@ -140,7 +134,7 @@ export default {
           href: '#',
           title: 'Logout',
           click: (e) => {
-            window.getApp.$emit('APP_LOGOUT');
+            window.getApp.$emit('APP_LOGOUT')
           }
         }
       ],
@@ -151,11 +145,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .setting-fab 
-    top:50%!important; 
+  .setting-fab
+    top:50%!important;
     right:0;
-    border-radius:0  
+    border-radius:0
   .page-wrapper
-    min-height:calc(100vh - 64px - 50px - 81px );  
-
+    min-height:calc(100vh - 64px - 50px - 81px );
 </style>
