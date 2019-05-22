@@ -7,7 +7,7 @@
        v-model="drawer"
       >
       <v-list dense>
-        <template v-for="item in items">
+        <template v-for="item in menus">
           <v-list-group
             v-if="item.children"
             v-model="item.model"
@@ -25,7 +25,6 @@
             <v-list-tile
               v-for="(child, i) in item.children"
               :key="i"
-              @click=""
             >
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
@@ -37,7 +36,7 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else @click="" :key="item.title" :to="item.component">
+          <v-list-tile v-else :key="item.title" :to="item.component">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -86,16 +85,13 @@
       </v-toolbar>
       <v-divider></v-divider>
       <v-content>
-         <v-container fluid fill-height>
-           <v-layout  justify-center align-center>
-              <router-view></router-view>
-           </v-layout>
-        </v-container>
+        <router-view></router-view>
       </v-content>
   </v-app>
 </template>
 
 <script>
+import menus from '@/api/menu'
 
 export default {
   name: 'App',
@@ -104,30 +100,6 @@ export default {
   },
   data () {
     return {
-      items: [
-        { title: 'Dashboard', icon: 'dashboard', component: '/' },
-        { title: 'About', icon: 'question_answer' , component: 'About'},
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          title: 'Roles',
-          model: false,
-          children: [
-            { icon: 'add', title: 'Create Role' },
-            { icon: 'view_list', title: 'View Roles' }
-          ]
-        },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          title: 'Permissions',
-          model: false,
-          children: [
-            { icon: 'add', title: 'Create Permission' },
-            { icon: 'view_list', title: 'View Permission' }
-          ]
-        }
-      ],
       icons: [
         {
           icon: 'fullscreen_exit',
@@ -138,7 +110,8 @@ export default {
           }
         }
       ],
-      drawer: null
+      drawer: null,
+      menus: menus
     }
   }
 }
