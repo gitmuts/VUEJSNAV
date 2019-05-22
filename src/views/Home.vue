@@ -44,7 +44,7 @@
  	 	<v-card-text>
 	 		<v-card>
 	 			<v-card-text mb-2>
-	 				<div class="text primary--text not"> James Buyers </div> 
+	 				<div class="text primary--text not font-weight-bold"> James Buyers </div> 
 	 				<div class="not" style="text-align:center"> 20000 USD </div>
 	 				<div class="not "><v-btn depressed round small color="warning"> Due </v-btn> </div> 
 	 				<div class="not font-weight-light font-italic" style="text-align:right"> 2 hours ago </div>
@@ -52,9 +52,9 @@
 	 		</v-card>
 	 		<v-card>
 	 			<v-card-text>
-	 				<div class="text primary--text not text-truncate"> Brandon Company </div> 
+	 				<div class="text primary--text not font-weight-bold"> Brandon Company </div> 
 	 				<div class="not text-truncate" style="text-align:center"> 3000 USD </div>
-	 				<div class="not"><v-btn depressed round small color="green"> PAID </v-btn> </div> 
+	 				<div class="not"><v-btn depressed round small color="primary"> PAID </v-btn> </div> 
 	 				<div class="not font-weight-light font-italic text-truncate" style="text-align:right"> 4 hours ago </div>
 	 			</v-card-text>
 	 		</v-card>
